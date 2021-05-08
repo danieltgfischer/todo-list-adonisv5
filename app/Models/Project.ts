@@ -21,10 +21,16 @@ export default class Project extends BaseModel {
   public description: string
 
   @column()
+  public is_done: boolean
+
+  @column()
   public userId: string
 
   @beforeCreate()
   public static async createUUID(project: Project) {
     project.id = uuid()
   }
+
+  @hasMany(() => Todo)
+  public todos: HasMany<typeof Todo>
 }
