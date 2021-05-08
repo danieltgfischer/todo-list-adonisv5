@@ -8,6 +8,7 @@ export default class Projects extends BaseSchema {
       table.uuid('id').primary()
       table.string('title', 80).notNullable()
       table.text('description', 'longtext').notNullable()
+      table.boolean('is_done').defaultTo(false)
       table.uuid('user_id')
         .unsigned()
         .references('id')

@@ -8,6 +8,8 @@ export default class Todos extends BaseSchema {
       table.uuid('id').primary()
       table.string('title', 80).notNullable()
       table.text('description', 'longtext')
+      table.boolean('is_done').defaultTo(false)
+      table.timestamp('due_date')
       table.uuid('project_id')
         .unsigned()
         .references('id')

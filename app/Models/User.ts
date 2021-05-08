@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
 import Hash from '@ioc:Adonis/Core/Hash'
 import Project from 'App/Models/Project'
-import Todo from 'App/Models/Todo'
 
 import {
   BaseModel,
@@ -46,8 +45,5 @@ export default class User extends BaseModel {
 
   @hasMany(() => Project)
   public projects: HasMany<typeof Project>
-
-  @hasMany(() => Todo)
-  public todos: HasMany<typeof Todo>
 
 }
