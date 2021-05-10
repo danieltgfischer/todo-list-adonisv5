@@ -1,9 +1,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', 'UsersController.index')
-Route.post('user', 'UsersController.store')
+Route.post('users', 'UsersController.store')
 Route.post('session', 'SessionsController.store')
+
 Route.group(() => {
+  Route.resource('users', 'UsersController')
+    .apiOnly()
+    .except(['store'])
   Route.resource('projects', 'ProjectsController')
     .apiOnly()
     .except(['index', 'show'])

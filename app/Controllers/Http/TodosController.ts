@@ -55,6 +55,7 @@ export default class TodosController {
       const todo = await Todo.findOrFail(params.id)
       await todo.merge(data)
       await todo.save()
+      return todo
     } catch (error) {
       return response.status(500).send({
         error: {

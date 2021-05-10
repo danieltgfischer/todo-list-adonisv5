@@ -7,6 +7,7 @@ export default class ProjectsController {
     try {
       const projects = await Project
         .query()
+        .has('owner')
         .preload('owner', owner => owner.select('id', 'name'))
         .paginate(params.page)
 
