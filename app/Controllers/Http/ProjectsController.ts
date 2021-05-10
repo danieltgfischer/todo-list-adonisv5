@@ -66,8 +66,8 @@ export default class ProjectsController {
 
   public async destroy({ params, response }: HttpContextContract) {
     try {
-      const user = await Project.findOrFail(params.id)
-      await user.delete()
+      const project = await Project.findOrFail(params.id)
+      await project.delete()
     } catch (error) {
       return response.status(500).send({
         error: {
