@@ -5,6 +5,7 @@ export default class UsersController {
   public async index({}: HttpContextContract) {
     return await User.all()
   }
+
   public async store({ request, response }: HttpContextContract) {
     try {
       const userExists = await User.findBy('email',  request.input('email') )

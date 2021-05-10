@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
 import { v4 as uuid } from 'uuid'
 import Todo from 'App/Models/Todo'
+import User from 'App/Models/User'
 
-import { BaseModel, column, beforeCreate, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeCreate, hasMany, HasMany, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Project extends BaseModel {
   @column({ isPrimary: true })
@@ -33,4 +34,7 @@ export default class Project extends BaseModel {
 
   @hasMany(() => Todo)
   public todos: HasMany<typeof Todo>
+
+  @hasOne(() => User, { localKey: 'userId', foreignKey: 'id'})
+  public owner: HasOne<typeof User>
 }
