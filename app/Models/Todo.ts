@@ -28,7 +28,7 @@ export default class Todo extends BaseModel {
   public userId: string
 
   @column()
-  public projectd: string
+  public projectId: string
 
   @column.dateTime()
   public due_date: DateTime
@@ -38,7 +38,7 @@ export default class Todo extends BaseModel {
     todo.id = uuid()
   }
 
-  @belongsTo(() => Project, { localKey: 'id', foreignKey: 'projectd' })
+  @belongsTo(() => Project, { localKey: 'id', foreignKey: 'projectId' })
   public project: BelongsTo<typeof Project>
 
   @belongsTo(() => User, { localKey: 'id', foreignKey: 'userId' })

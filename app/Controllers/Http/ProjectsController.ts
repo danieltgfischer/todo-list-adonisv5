@@ -36,7 +36,9 @@ export default class ProjectsController {
 
   public async show({ params, response }: HttpContextContract) {
     try {
-      return await Project.findByOrFail('id', params.id)
+      return await Project.query()
+        .where('id', params.id)
+        .preload('todos', todos => todos)
     } catch (error) {
       return response.status(500).send({
         error: {
