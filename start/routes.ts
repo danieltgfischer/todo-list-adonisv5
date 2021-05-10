@@ -9,6 +9,7 @@ Route.group(() => {
     .except(['index', 'show'])
   Route.get('projects/:page', 'ProjectsController.index')
   Route.get('project/:id', 'ProjectsController.show')
+  Route.get('projects/:id/info/todos', 'ProjectsController.infoTodos')
   Route.resource('projects.todos', 'TodosController')
     .apiOnly()
     .except(['index', 'show'])

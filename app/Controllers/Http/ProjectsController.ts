@@ -5,9 +5,11 @@ export default class ProjectsController {
 
   public async index({ params, response }: HttpContextContract) {
     try {
-      const projects = await Project.query()
+      const projects = await Project
+        .query()
         .preload('owner', owner => owner.select('id', 'name'))
         .paginate(params.page)
+
       return projects
     } catch (error) {
       return response.status(500).send({
@@ -36,9 +38,11 @@ export default class ProjectsController {
 
   public async show({ params, response }: HttpContextContract) {
     try {
-      return await Project.query()
+      const project = await Project.query()
         .where('id', params.id)
-        .preload('todos', todos => todos)
+        .with('owner', owner => owner.select('name'))
+
+      return project
     } catch (error) {
       return response.status(500).send({
         error: {
@@ -49,6 +53,24 @@ export default class ProjectsController {
     }
   }
 
+  public async infoTodos({ params, response }: HttpContextContract) {
+    try {
+      const project = await Project.query(params.id)
+        .withCount('todos', todos => todos.where('is_done', false).as('unfinished_todos'))
+        .withCount('todos', todos => todos.where('is_done', true).as('finished_todos'))
+        .withCount('todos', todos => todos.as('count_todos'))
+        .pojo()
+
+      return project
+    } catch (error) {
+      return response.status(500).send({
+        error: {
+          message: 'Algo deu errado ao buscar o projeto',
+          error
+        }
+      })
+    }
+  }
   public async update({ params, response, request }: HttpContextContract) {
     try {
       const data = request.all()

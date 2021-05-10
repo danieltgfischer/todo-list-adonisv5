@@ -18,10 +18,13 @@ export default class TodosController {
     }
   }
 
-  public async store({ auth, request, response }: HttpContextContract) {
+  public async store({ params, request, response, auth }: HttpContextContract) {
     try {
       const data = request.all()
-      const todo = await Todo.create({ ...data, userId: auth?.user?.id })
+      const todo = await Todo.create({
+         ...data,
+          userId: auth?.user?.id,
+           projectId: params.project_id })
       return todo
     } catch (error) {
       return response.status(500).send({
